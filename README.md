@@ -8,13 +8,17 @@
 
 ```dart
 class _MyHomePageState extends State<MyHomePage> {
-  double percent = 61.8;
+  double percent = 0;
   @override
   void initState() {
     super.initState();
-    Timer.periodic(Duration(milliseconds: 16), (timer) {
+    Timer.periodic(Duration(milliseconds: 1000), (timer) {
       setState(() {
-        percent = percent >= 99 ? 100 : percent + .1;
+        if (percent == 100) {
+          percent = 0;
+        } else {
+          percent = percent >= 90 ? 100 : percent + 10;
+        }
       });
     });
   }
@@ -30,6 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           children: [
             Progress(
+              strokeWidth: 10,
               trailColor: Color.fromRGBO(253, 241, 240, 1),
               colors: [
                 Color.fromRGBO(247, 206, 200, 1),
@@ -52,6 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
               height: 16,
             ),
             Progress(
+              strokeWidth: 10,
               percent: percent,
               showInfo: false,
               trailColor: Color.fromRGBO(253, 241, 240, 1),
